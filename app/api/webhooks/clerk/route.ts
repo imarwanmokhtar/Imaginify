@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 
+import connectToDatabase from "@/lib/database/mongoose";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 
 export async function POST(req: Request) {
@@ -46,6 +47,8 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   try {
+    await connectToDatabase();
+
     if (eventType === "user.created") {
       const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
 
