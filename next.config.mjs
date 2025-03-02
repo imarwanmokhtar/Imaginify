@@ -17,9 +17,7 @@ const nextConfig = {
       }
     ]
   },
-  experimental: {
-    appDir: true
-  }
+  // App Router is now default in Next.js 14+
 };
 
 export default nextConfig;
