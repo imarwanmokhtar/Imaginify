@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  distDir: '.next',
   experimental: {
-    serverComponentsExternalPackages: ['mongoose']
+    serverComponentsExternalPackages: ['mongoose'],
+    serverActions: {
+      bodySizeLimit: '2mb',
+    }
   },
   images: {
+    unoptimized: true,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
@@ -16,7 +20,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'ui-avatars.com',
-        
         port: ''
       }
     ]
