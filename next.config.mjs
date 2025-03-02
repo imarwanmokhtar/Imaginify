@@ -23,7 +23,7 @@ const nextConfig = {
       buildDependencies: {
         config: []
       },
-      cacheDirectory: '.next/cache',
+      cacheDirectory: require('path').resolve('.next/cache'),
       maxAge: 31536000000 // 1 year in milliseconds
     }
 
