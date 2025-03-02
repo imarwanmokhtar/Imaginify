@@ -6,7 +6,8 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone', // Ensure standalone mode for Vercel
+  // Disable standalone output mode when deploying to Vercel
+  output: process.env.VERCEL ? undefined : 'standalone',
   reactStrictMode: true,
   swcMinify: true,
   compress: true, // Enable gzip compression
