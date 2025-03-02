@@ -4,7 +4,12 @@ import path from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone', // Ensure standalone mode for Vercel
+  reactStrictMode: true,
+  swcMinify: true,
+  compress: true, // Enable gzip compression
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -12,39 +17,26 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
-        port: ''
+        port: '',
       },
       {
         protocol: 'https',
         hostname: 'ui-avatars.com',
-        port: ''
-      }
-    ]
+        port: '',
+      },
+    ],
   },
   webpack: (config, { dev, isServer }) => {
-    // Enable filesystem caching
-    config.cache = {
-      type: 'filesystem',
-      buildDependencies: {
-        config: []
-      },
-      cacheDirectory: path.resolve(__dirname, '.next/cache'), // Now using absolute path
-      maxAge: 31536000000 // 1 year in milliseconds
-    };
+    // Disable filesystem caching to prevent corrupt cache issues on Vercel
+    config.cache = false;
 
-    // Enable compression
+    // Enable compression for smaller bundle size
     if (!dev && !isServer) {
       config.optimization.minimize = true;
     }
 
     return config;
   },
-  // Enable gzip compression
-  compress: true,
-  // Increase build performance
-  swcMinify: true,
-  // Reduce bundle size
-  reactStrictMode: true
 };
 
 export default nextConfig;
