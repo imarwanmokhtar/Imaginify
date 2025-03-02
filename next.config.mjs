@@ -16,6 +16,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'ui-avatars.com',
+        
         port: ''
       }
     ]
