@@ -10,7 +10,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Completely disable the edge runtime and use Node.js for everything
+  // Disable static optimization to avoid Clerk SSG issues
   experimental: {
     serverComponentsExternalPackages: ['mongoose', '@clerk/nextjs'],
     disableOptimizedLoading: true,
@@ -19,6 +19,10 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+  // Force dynamic rendering for all pages
+  reactStrictMode: false,
+  staticPageGenerationTimeout: 1000,
+  output: 'standalone',
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

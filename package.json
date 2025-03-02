@@ -6,7 +6,7 @@
     "dev": "next dev",
     "prebuild": "node fix-route-groups.js && node fix-edge-warnings.js && node patch-nextjs.js",
     "build": "next build",
-    "postbuild": "node force-fix.js",
+    "postbuild": "node force-fix.js && node fix-clerk-ssg.js",
     "start": "next start",
     "lint": "next lint"
   },
