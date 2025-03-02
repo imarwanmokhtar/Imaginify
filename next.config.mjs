@@ -10,8 +10,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Completely disable the edge runtime and use Node.js for everything
   experimental: {
-    serverComponentsExternalPackages: ['mongoose']
+    serverComponentsExternalPackages: ['mongoose', '@clerk/nextjs'],
+    disableOptimizedLoading: true,
+    serverMinification: false,
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
   images: {
     dangerouslyAllowSVG: true,

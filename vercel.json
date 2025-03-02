@@ -4,5 +4,16 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "functions": {
+    "api/**/*": {
+      "runtime": "nodejs18.x"
+    },
+    "app/**/*": {
+      "runtime": "nodejs18.x"
+    },
+    "middleware": {
+      "runtime": "nodejs18.x"
+    }
+  }
 } 
