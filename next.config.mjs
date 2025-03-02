@@ -11,8 +11,7 @@ const nextConfig = {
   swcMinify: true,
   compress: true,
   experimental: {
-    serverComponentsExternalPackages: [],
-    serverActions: true
+    serverComponentsExternalPackages: []
   },
   images: {
     dangerouslyAllowSVG: true,
@@ -38,9 +37,6 @@ const nextConfig = {
     }
     
     return config;
-  },
-  env: {
-    NEXT_RUNTIME: "nodejs"
   }
 };
 
