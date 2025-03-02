@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  distDir: '.next',
+  // We'll use standalone mode but with our custom postbuild script to fix issues
+  output: 'standalone',
   experimental: {
     serverComponentsExternalPackages: ['mongoose'],
+    // Add more stability for the build process
     serverActions: {
       bodySizeLimit: '2mb',
     }
   },
+  // Set unoptimized to false for images since you need dynamic image optimization
   images: {
-    unoptimized: true,
+    unoptimized: false,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
