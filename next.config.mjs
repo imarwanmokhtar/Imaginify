@@ -11,7 +11,7 @@ const nextConfig = {
   swcMinify: true,
   compress: true,
   experimental: {
-    serverComponentsExternalPackages: []
+    serverComponentsExternalPackages: ['@clerk/nextjs', 'scheduler', '@clerk/shared']
   },
   images: {
     dangerouslyAllowSVG: true,
