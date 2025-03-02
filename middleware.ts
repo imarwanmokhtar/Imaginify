@@ -1,8 +1,9 @@
 import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
- 
+
 export default authMiddleware({
+  runtime: 'nodejs',
   publicRoutes: ['/', '/api/webhooks/clerk', '/api/webhooks/stripe'],
   afterAuth(auth, req) {
     // If the user is not authenticated and trying to access a protected route,
