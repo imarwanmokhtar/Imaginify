@@ -12,9 +12,7 @@ const nextConfig = {
   compress: true,
   experimental: {
     // Add this to properly handle route groups
-    serverComponentsExternalPackages: [],
-    // Might help with the manifest generation
-    serverActions: true
+    serverComponentsExternalPackages: []
   },
   images: {
     dangerouslyAllowSVG: true,
