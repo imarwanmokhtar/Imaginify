@@ -1,4 +1,5 @@
-/** @type {import('next').NextConfig} */
+import path from 'path';
+
 const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
@@ -23,16 +24,16 @@ const nextConfig = {
       buildDependencies: {
         config: []
       },
-      cacheDirectory: '.next/cache',
+      cacheDirectory: path.resolve(__dirname, '.next/cache'), // Use absolute path
       maxAge: 31536000000 // 1 year in milliseconds
-    }
+    };
 
     // Enable compression
     if (!dev && !isServer) {
-      config.optimization.minimize = true
+      config.optimization.minimize = true;
     }
 
-    return config
+    return config;
   },
   // Enable gzip compression
   compress: true,
