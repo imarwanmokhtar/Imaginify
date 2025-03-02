@@ -11,8 +11,8 @@ const nextConfig = {
   swcMinify: true,
   compress: true,
   experimental: {
-    // Add this to properly handle route groups
-    serverComponentsExternalPackages: []
+    serverComponentsExternalPackages: [],
+    serverActions: true
   },
   images: {
     dangerouslyAllowSVG: true,
@@ -39,6 +39,9 @@ const nextConfig = {
     
     return config;
   },
+  env: {
+    NEXT_RUNTIME: "nodejs"
+  }
 };
 
 export default nextConfig;
