@@ -40,22 +40,62 @@ function patchNextConfig() {
 // Create placeholder files that might be missing during build
 function createPlaceholderFiles() {
   const routeGroups = ['(root)', '(auth)'];
-  const baseDir = path.join(process.cwd(), '.next', 'server', 'app');
+  const isVercel = process.cwd().includes('/vercel/') || fs.existsSync('/vercel/path0');
   
-  routeGroups.forEach(group => {
-    const groupDir = path.join(baseDir, group);
-    ensureDirectoryExistence(groupDir);
+  // Define all possible base directories
+  const baseDirs = [
+    path.join(process.cwd(), '.next', 'server', 'app'),
+  ];
+  
+  // Add Vercel-specific paths if detected
+  if (isVercel) {
+    console.log('Vercel environment detected');
+    baseDirs.push('/vercel/path0/.next/server/app');
     
-    // Create placeholder files that might be needed
-    ['page_client-reference-manifest.js', 'layout_client-reference-manifest.js'].forEach(file => {
-      const filePath = path.join(groupDir, file);
-      if (!fs.existsSync(filePath)) {
-        try {
-          fs.writeFileSync(filePath, '// Placeholder file created by patch script');
-          console.log(`Created placeholder file: ${filePath}`);
-        } catch (err) {
-          console.error(`Error creating file ${filePath}:`, err);
-        }
+    // Try to find all possible Vercel paths
+    for (let i = 0; i < 5; i++) {
+      const vercelPath = `/vercel/path${i}/.next/server/app`;
+      if (!baseDirs.includes(vercelPath)) {
+        baseDirs.push(vercelPath);
+      }
+    }
+  }
+  
+  console.log('Creating placeholder files in the following locations:');
+  baseDirs.forEach(baseDir => console.log(`- ${baseDir}`));
+  
+  // Create placeholder files in all base directories
+  baseDirs.forEach(baseDir => {
+    routeGroups.forEach(group => {
+      const groupDir = path.join(baseDir, group);
+      
+      try {
+        ensureDirectoryExistence(groupDir);
+        console.log(`Created directory: ${groupDir}`);
+        
+        // Create placeholder files that might be needed
+        const filesToCreate = [
+          'page_client-reference-manifest.js', 
+          'layout_client-reference-manifest.js',
+          'page.js',
+          'layout.js'
+        ];
+        
+        filesToCreate.forEach(file => {
+          const filePath = path.join(groupDir, file);
+          if (!fs.existsSync(filePath)) {
+            try {
+              fs.writeFileSync(filePath, '// Placeholder file created by patch script');
+              console.log(`Created placeholder file: ${filePath}`);
+            } catch (err) {
+              console.error(`Error creating file ${filePath}:`, err);
+            }
+          } else {
+            console.log(`File already exists: ${filePath}`);
+          }
+        });
+      } catch (err) {
+        console.error(`Error working with directory ${groupDir}:`, err);
       }
     });
   });
@@ -63,4 +103,5 @@ function createPlaceholderFiles() {
 
 // Run patch functions
 patchNextConfig();
+createPlaceholderFiles();
 console.log('Patch completed successfully!'); 

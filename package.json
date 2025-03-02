@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node patch-nextjs.js",
+    "prebuild": "node fix-route-groups.js && node patch-nextjs.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
