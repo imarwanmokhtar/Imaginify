@@ -1,4 +1,8 @@
+import { fileURLToPath } from 'url';
 import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const nextConfig = {
   images: {
@@ -24,7 +28,7 @@ const nextConfig = {
       buildDependencies: {
         config: []
       },
-      cacheDirectory: path.resolve(__dirname, '.next/cache'), // Use absolute path
+      cacheDirectory: path.resolve(__dirname, '.next/cache'), // Now using absolute path
       maxAge: 31536000000 // 1 year in milliseconds
     };
 
