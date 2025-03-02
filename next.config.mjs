@@ -6,11 +6,16 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable standalone output mode when deploying to Vercel
-  output: process.env.VERCEL ? undefined : 'standalone',
+  output: 'standalone',
   reactStrictMode: true,
   swcMinify: true,
-  compress: true, // Enable gzip compression
+  compress: true,
+  experimental: {
+    // Add this to properly handle route groups
+    serverComponentsExternalPackages: [],
+    // Might help with the manifest generation
+    serverActions: true
+  },
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -28,14 +33,12 @@ const nextConfig = {
     ],
   },
   webpack: (config, { dev, isServer }) => {
-    // Disable filesystem caching to prevent corrupt cache issues on Vercel
     config.cache = false;
-
-    // Enable compression for smaller bundle size
+    
     if (!dev && !isServer) {
       config.optimization.minimize = true;
     }
-
+    
     return config;
   },
 };

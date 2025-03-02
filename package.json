@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && mkdir -p .next/standalone/.next/server/app/(root)/ || true",
     "start": "next start",
     "lint": "next lint"
   },
