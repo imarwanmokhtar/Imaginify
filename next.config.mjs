@@ -1,17 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // We'll use standalone mode but with our custom postbuild script to fix issues
-  output: 'standalone',
+  // Remove standalone output mode which is causing issues
   experimental: {
-    serverComponentsExternalPackages: ['mongoose'],
-    // Add more stability for the build process
-    serverActions: {
-      bodySizeLimit: '2mb',
-    }
+    serverComponentsExternalPackages: ['mongoose']
   },
-  // Set unoptimized to false for images since you need dynamic image optimization
   images: {
-    unoptimized: false,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
