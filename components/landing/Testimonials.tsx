@@ -94,7 +94,7 @@ const Testimonials = () => {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 italic">
-                  "{testimonials[currentIndex].text}"
+                  &quot;{testimonials[currentIndex].text}&quot;
                 </p>
               </div>
             </motion.div>
