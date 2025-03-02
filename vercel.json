@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "node fix-route-groups.js && node fix-edge-warnings.js && node patch-nextjs.js && npm run build && node force-fix.js",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",

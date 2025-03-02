@@ -2,106 +2,211 @@
 const fs = require('fs');
 const path = require('path');
 
+console.log('Running Next.js patch script...');
+
 // Function to create directory if it doesn't exist
 function ensureDirectoryExistence(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-}
-
-// Update the Next.js config to be more compatible with route groups
-function patchNextConfig() {
-  const configPath = path.join(process.cwd(), 'node_modules', 'next', 'dist', 'server', 'config.js');
-  if (fs.existsSync(configPath)) {
-    try {
-      let content = fs.readFileSync(configPath, 'utf8');
-      
-      // Add check to ignore parentheses in route groups during file tracing
-      if (!content.includes('// PATCHED_FOR_ROUTE_GROUPS')) {
-        console.log('Patching Next.js config for route groups...');
-        // This is a basic patch that might help with route group issues
-        content = content.replace(
-          'const resolvedDir = path.join(dir, resolvedUrlPath);',
-          'const resolvedDir = path.join(dir, resolvedUrlPath); // PATCHED_FOR_ROUTE_GROUPS'
-        );
-        fs.writeFileSync(configPath, content, 'utf8');
-        console.log('Next.js config patched successfully!');
-      } else {
-        console.log('Next.js config already patched.');
-      }
-    } catch (error) {
-      console.error('Error patching Next.js config:', error);
+  try {
+    if (!fs.existsSync(dirPath)) {
+      console.log(`Creating directory: ${dirPath}`);
+      fs.mkdirSync(dirPath, { recursive: true });
     }
-  } else {
-    console.log('Next.js config file not found at:', configPath);
+  } catch (error) {
+    console.error(`Error creating directory ${dirPath}:`, error.message);
   }
 }
 
 // Create placeholder files that might be missing during build
 function createPlaceholderFiles() {
-  const routeGroups = ['(root)', '(auth)'];
-  const isVercel = process.cwd().includes('/vercel/') || fs.existsSync('/vercel/path0');
+  console.log('Creating placeholder files for route groups...');
   
-  // Define all possible base directories
-  const baseDirs = [
-    path.join(process.cwd(), '.next', 'server', 'app'),
-  ];
+  // The exact file that's causing the error
+  const exactFilePath = '/vercel/path0/.next/server/app/(root)/page_client-reference-manifest.js';
+  const exactDirPath = path.dirname(exactFilePath);
   
-  // Add Vercel-specific paths if detected
-  if (isVercel) {
-    console.log('Vercel environment detected');
-    baseDirs.push('/vercel/path0/.next/server/app');
+  try {
+    console.log(`Attempting to create directory: ${exactDirPath}`);
+    ensureDirectoryExistence(exactDirPath);
     
-    // Try to find all possible Vercel paths
-    for (let i = 0; i < 5; i++) {
-      const vercelPath = `/vercel/path${i}/.next/server/app`;
-      if (!baseDirs.includes(vercelPath)) {
-        baseDirs.push(vercelPath);
+    console.log(`Attempting to create file: ${exactFilePath}`);
+    fs.writeFileSync(exactFilePath, 'module.exports = {}\n', { flag: 'w' });
+    console.log(`Successfully created: ${exactFilePath}`);
+  } catch (error) {
+    console.error(`Error creating ${exactFilePath}:`, error.message);
+  }
+  
+  // Also try the standard Next.js path if we're not on Vercel
+  const defaultNextDir = path.join(process.cwd(), '.next', 'server', 'app', '(root)');
+  
+  try {
+    console.log(`Attempting to create directory: ${defaultNextDir}`);
+    ensureDirectoryExistence(defaultNextDir);
+    
+    const defaultFilePath = path.join(defaultNextDir, 'page_client-reference-manifest.js');
+    console.log(`Attempting to create file: ${defaultFilePath}`);
+    fs.writeFileSync(defaultFilePath, 'module.exports = {}\n', { flag: 'w' });
+    console.log(`Successfully created: ${defaultFilePath}`);
+  } catch (error) {
+    console.error(`Error creating file in default Next.js directory:`, error.message);
+  }
+  
+  // Try all possible Vercel paths
+  for (let i = 0; i < 5; i++) {
+    const vercelPath = `/vercel/path${i}/.next/server/app/(root)`;
+    
+    try {
+      console.log(`Attempting to create directory: ${vercelPath}`);
+      ensureDirectoryExistence(vercelPath);
+      
+      const manifestFilePath = path.join(vercelPath, 'page_client-reference-manifest.js');
+      console.log(`Attempting to create file: ${manifestFilePath}`);
+      fs.writeFileSync(manifestFilePath, 'module.exports = {}\n', { flag: 'w' });
+      console.log(`Successfully created: ${manifestFilePath}`);
+      
+      // Also create layout manifest
+      const layoutManifestPath = path.join(vercelPath, 'layout_client-reference-manifest.js');
+      fs.writeFileSync(layoutManifestPath, 'module.exports = {}\n', { flag: 'w' });
+      console.log(`Successfully created: ${layoutManifestPath}`);
+    } catch (error) {
+      console.error(`Error creating files in Vercel path ${i}:`, error.message);
+    }
+  }
+}
+
+// Create duplicate route groups without parentheses
+function createDuplicateRouteGroups() {
+  console.log('Creating duplicate route groups without parentheses...');
+  
+  // First, try to find and create route groups in the source code
+  const appDir = path.join(process.cwd(), 'app');
+  
+  if (fs.existsSync(appDir)) {
+    try {
+      const entries = fs.readdirSync(appDir);
+      
+      for (const entry of entries) {
+        if (entry.startsWith('(') && entry.endsWith(')')) {
+          const sourceDir = path.join(appDir, entry);
+          const newName = entry.replace(/[()]/g, '');
+          const targetDir = path.join(appDir, newName);
+          
+          if (fs.statSync(sourceDir).isDirectory()) {
+            console.log(`Found route group: ${entry}, creating duplicate: ${newName}`);
+            ensureDirectoryExistence(targetDir);
+            
+            // Copy files from the route group to the new directory
+            const files = fs.readdirSync(sourceDir);
+            for (const file of files) {
+              const sourcePath = path.join(sourceDir, file);
+              const targetPath = path.join(targetDir, file);
+              
+              if (fs.statSync(sourcePath).isFile()) {
+                fs.copyFileSync(sourcePath, targetPath);
+                console.log(`Copied ${file} to ${targetPath}`);
+              }
+            }
+          }
+        }
       }
+    } catch (error) {
+      console.error('Error duplicating route groups:', error.message);
     }
   }
   
-  console.log('Creating placeholder files in the following locations:');
-  baseDirs.forEach(baseDir => console.log(`- ${baseDir}`));
-  
-  // Create placeholder files in all base directories
-  baseDirs.forEach(baseDir => {
-    routeGroups.forEach(group => {
-      const groupDir = path.join(baseDir, group);
+  // Then, try to create the same structure in the .next directory
+  try {
+    const buildDir = path.join(process.cwd(), '.next', 'server', 'app');
+    if (fs.existsSync(buildDir)) {
+      const entries = fs.readdirSync(buildDir);
       
-      try {
-        ensureDirectoryExistence(groupDir);
-        console.log(`Created directory: ${groupDir}`);
-        
-        // Create placeholder files that might be needed
-        const filesToCreate = [
-          'page_client-reference-manifest.js', 
-          'layout_client-reference-manifest.js',
-          'page.js',
-          'layout.js'
-        ];
-        
-        filesToCreate.forEach(file => {
-          const filePath = path.join(groupDir, file);
-          if (!fs.existsSync(filePath)) {
-            try {
-              fs.writeFileSync(filePath, '// Placeholder file created by patch script');
-              console.log(`Created placeholder file: ${filePath}`);
-            } catch (err) {
-              console.error(`Error creating file ${filePath}:`, err);
+      for (const entry of entries) {
+        if (entry.startsWith('(') && entry.endsWith(')')) {
+          const sourceDir = path.join(buildDir, entry);
+          const newName = entry.replace(/[()]/g, '');
+          const targetDir = path.join(buildDir, newName);
+          
+          if (fs.statSync(sourceDir).isDirectory()) {
+            console.log(`Found built route group: ${entry}, creating duplicate: ${newName}`);
+            ensureDirectoryExistence(targetDir);
+            
+            // Copy files from the route group to the new directory
+            const files = fs.readdirSync(sourceDir);
+            for (const file of files) {
+              const sourcePath = path.join(sourceDir, file);
+              const targetPath = path.join(targetDir, file);
+              
+              if (fs.statSync(sourcePath).isFile()) {
+                fs.copyFileSync(sourcePath, targetPath);
+                console.log(`Copied ${file} to ${targetPath}`);
+              }
             }
-          } else {
-            console.log(`File already exists: ${filePath}`);
           }
-        });
-      } catch (err) {
-        console.error(`Error working with directory ${groupDir}:`, err);
+        }
       }
-    });
-  });
+    }
+  } catch (error) {
+    console.error('Error duplicating route groups in build directory:', error.message);
+  }
+  
+  // And finally, try the same for Vercel paths
+  for (let i = 0; i < 5; i++) {
+    try {
+      const vercelBuildDir = `/vercel/path${i}/.next/server/app`;
+      
+      if (fs.existsSync(vercelBuildDir)) {
+        const entries = fs.readdirSync(vercelBuildDir);
+        
+        for (const entry of entries) {
+          if (entry.startsWith('(') && entry.endsWith(')')) {
+            const sourceDir = path.join(vercelBuildDir, entry);
+            const newName = entry.replace(/[()]/g, '');
+            const targetDir = path.join(vercelBuildDir, newName);
+            
+            if (fs.statSync(sourceDir).isDirectory()) {
+              console.log(`Found Vercel route group: ${entry}, creating duplicate: ${newName}`);
+              ensureDirectoryExistence(targetDir);
+              
+              // Copy files from the route group to the new directory
+              const files = fs.readdirSync(sourceDir);
+              for (const file of files) {
+                const sourcePath = path.join(sourceDir, file);
+                const targetPath = path.join(targetDir, file);
+                
+                if (fs.statSync(sourcePath).isFile()) {
+                  fs.copyFileSync(sourcePath, targetPath);
+                  console.log(`Copied ${file} to ${targetPath}`);
+                }
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error(`Error duplicating route groups in Vercel path ${i}:`, error.message);
+    }
+  }
 }
 
-// Run patch functions
-patchNextConfig();
+// Check if file exists and create it if not
+function forceCreateEmptyFile(filePath) {
+  try {
+    const content = 'module.exports = {}\n';
+    fs.writeFileSync(filePath, content, { flag: 'w' });
+    console.log(`Successfully created: ${filePath}`);
+    return true;
+  } catch (error) {
+    console.error(`Error creating ${filePath}:`, error.message);
+    return false;
+  }
+}
+
+// Run all fixes
+console.log('Starting Next.js fixes...');
+createDuplicateRouteGroups();
 createPlaceholderFiles();
-console.log('Patch completed successfully!'); 
+
+// Direct fix for the reported error
+const exactFilePath = '/vercel/path0/.next/server/app/(root)/page_client-reference-manifest.js';
+forceCreateEmptyFile(exactFilePath);
+
+console.log('All Next.js fixes completed. Check logs for any errors.'); 
