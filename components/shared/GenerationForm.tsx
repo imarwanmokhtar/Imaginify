@@ -89,20 +89,24 @@ const GenerationForm = ({ userId, creditBalance }: GenerationFormProps) => {
         await updateCredits(userId, -1)
 
         // Save the generated image
+        const imageData = {
+          title: values.title,
+          publicId: image.publicId as string,
+          width: 1024,
+          height: 1024,
+          transformationType: "generate",
+          secureURL: image.secureURL as string,
+          config: { prompt: values.prompt },
+          transformationURL: image.secureURL as string,
+          aspectRatio: "1:1",
+          prompt: values.prompt,
+          color: undefined
+        };
+
         await addImage({
-          image: {
-            title: values.title,
-            publicId: image.publicId,
-            width: 1024,
-            height: 1024,
-            transformationType: "generate",
-            secureURL: image.secureUrl,
-            config: {
-              prompt: values.prompt,
-            },
-          },
+          image: imageData,
           userId,
-          path: "/transformations",
+          path: "/"
         })
 
         // Show success message
