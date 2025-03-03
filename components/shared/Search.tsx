@@ -16,7 +16,7 @@ export const Search = () => {
     const delayDebounceFn = setTimeout(() => {
       if (query) {
         const newUrl = formUrlQuery({
-          searchParams: searchParams.toString(),
+          searchParams: searchParams?.toString() || "",
           key: "query",
           value: query,
         });
@@ -24,7 +24,7 @@ export const Search = () => {
         router.push(newUrl, { scroll: false });
       } else {
         const newUrl = removeKeysFromQuery({
-          searchParams: searchParams.toString(),
+          searchParams: searchParams?.toString() || "",
           keysToRemove: ["query"],
         });
 
