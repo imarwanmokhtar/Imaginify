@@ -26,10 +26,10 @@ const Navbar = () => {
           <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/assets/images/logo-text.svg"
-              alt="Imaginify Logo"
-              width={150}
-              height={30}
-              className="object-contain"
+              alt="logo"
+              width={180}
+              height={28}
+              style={{ width: 'auto', height: 'auto' }}
             />
           </Link>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Wand2, Eraser, Layers, Image as ImageIcon, Palette } from 'lucide-react';
+import { Wand2, Eraser, Layers, Image as ImageIcon, Palette, Sparkles } from 'lucide-react';
 
 const features = [
   {
@@ -28,6 +28,11 @@ const features = [
     icon: <Palette className="w-8 h-8" />,
     title: 'Object Recolor',
     description: 'Change object colors intelligently while preserving lighting and texture.'
+  },
+  {
+    icon: <Sparkles className="w-8 h-8" />,
+    title: 'AI Image Generation',
+    description: 'Create stunning images from text descriptions using advanced AI technology.'
   }
 ];
 

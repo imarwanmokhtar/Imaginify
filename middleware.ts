@@ -17,8 +17,13 @@ export default authMiddleware({
   ],
   afterAuth(auth, req) {
     // If the user is not authenticated and trying to access a protected route,
-    // redirect them to the landing page which is now the root
-    if (!auth.userId && req.nextUrl.pathname.startsWith('/app')) {
+    // redirect them to the landing page
+    if (!auth.userId && (
+      req.nextUrl.pathname.startsWith('/app') ||
+      req.nextUrl.pathname.startsWith('/transformations') ||
+      req.nextUrl.pathname.startsWith('/profile') ||
+      req.nextUrl.pathname.startsWith('/credits')
+    )) {
       return NextResponse.redirect(new URL("/", req.url));
     }
     

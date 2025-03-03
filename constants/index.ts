@@ -5,6 +5,11 @@ export const navLinks = [
     icon: "/assets/icons/home.svg",
   },
   {
+    label: "AI Generation",
+    route: "/transformations/generate",
+    icon: "/assets/icons/stars.svg",
+  },
+  {
     label: "Image Restore",
     route: "/transformations/add/restore",
     icon: "/assets/icons/image.svg",
@@ -159,6 +164,13 @@ export const transformationTypes = {
     },
     icon: "filter.svg",
   },
+  generate: {
+    type: "generate",
+    title: "AI Image Generation",
+    subTitle: "Generate images from text descriptions",
+    config: {},
+    icon: "stars.svg",
+  },
 };
 
 export const aspectRatioOptions = {
@@ -180,6 +192,42 @@ export const aspectRatioOptions = {
     width: 1000,
     height: 1778,
   },
+  "4:3": {
+    aspectRatio: "4:3",
+    label: "Standard Landscape (4:3)",
+    width: 1334,
+    height: 1000,
+  },
+  "16:9": {
+    aspectRatio: "16:9",
+    label: "Widescreen (16:9)",
+    width: 1778,
+    height: 1000,
+  },
+  "2:3": {
+    aspectRatio: "2:3",
+    label: "Tall Portrait (2:3)",
+    width: 1000,
+    height: 1500,
+  },
+  "3:2": {
+    aspectRatio: "3:2",
+    label: "Wide Landscape (3:2)",
+    width: 1500,
+    height: 1000,
+  },
+  "1:2": {
+    aspectRatio: "1:2",
+    label: "Vertical Banner (1:2)",
+    width: 1000,
+    height: 2000,
+  },
+  "2:1": {
+    aspectRatio: "2:1",
+    label: "Horizontal Banner (2:1)",
+    width: 2000,
+    height: 1000,
+  }
 };
 
 export const defaultValues = {
