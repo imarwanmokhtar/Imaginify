@@ -38,7 +38,7 @@ export const Collection = ({
     const pageValue = action === "next" ? Number(page) + 1 : Number(page) - 1;
 
     const newUrl = formUrlQuery({
-      searchParams: searchParams.toString(),
+      searchParams: searchParams?.toString() || "", // Ensure it's not null
       key: "page",
       value: pageValue,
     });
