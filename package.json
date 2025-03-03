@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node fix-route-groups.js && node fix-edge-warnings.js && node patch-nextjs.js",
+    "prebuild": "node fix-route-groups.js && node fix-edge-warnings.js && node fix-auth-routes.js && node patch-nextjs.js",
     "build": "next build",
     "postbuild": "node force-fix.js && node fix-clerk-ssg.js",
     "start": "next start",

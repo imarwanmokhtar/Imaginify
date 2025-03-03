@@ -1,9 +1,20 @@
 import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
- 
+
 export default authMiddleware({
-  publicRoutes: ['/', '/api/webhooks/clerk', '/api/webhooks/stripe'],
+  // Include both versions of routes (with and without parentheses)
+  publicRoutes: [
+    '/', 
+    '/api/webhooks/clerk', 
+    '/api/webhooks/stripe',
+    '/sign-in',
+    '/sign-up',
+    '/sign-in/[[...sign-in]]',
+    '/sign-up/[[...sign-up]]',
+    '/auth/sign-in/[[...sign-in]]',
+    '/auth/sign-up/[[...sign-up]]'
+  ],
   afterAuth(auth, req) {
     // If the user is not authenticated and trying to access a protected route,
     // redirect them to the landing page which is now the root
