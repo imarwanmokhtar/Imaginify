@@ -95,9 +95,9 @@ const GenerationForm = ({ userId, creditBalance }: GenerationFormProps) => {
           width: 1024,
           height: 1024,
           transformationType: "generate",
-          secureURL: image.secureURL as string,
+          secureURL: image.secureUrl as string,
           config: { prompt: values.prompt },
-          transformationURL: image.secureURL as string,
+          transformationURL: image.secureUrl as string,
           aspectRatio: "1:1",
           prompt: values.prompt,
           color: undefined
