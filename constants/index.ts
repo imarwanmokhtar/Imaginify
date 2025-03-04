@@ -55,11 +55,15 @@ export const plans = [
     credits: 10,
     inclusions: [
       {
-        label: "10 Free Credits",
+        label: "10 Free Credits - Start Creating Now!",
         isIncluded: true,
       },
       {
-        label: "Basic Access to Services",
+        label: "Basic Access to All AI Services",
+        isIncluded: true,
+      },
+      {
+        label: "Credits Never Expire",
         isIncluded: true,
       },
       {
@@ -76,15 +80,19 @@ export const plans = [
     _id: 2,
     name: "Pro Package",
     icon: "/assets/icons/free-plan.svg",
-    price: 40,
-    credits: 120,
+    price: 9,
+    credits: 100,
     inclusions: [
       {
-        label: "120 Credits",
+        label: "100 Credits - Best Value!",
         isIncluded: true,
       },
       {
-        label: "Full Access to Services",
+        label: "Full Access to All AI Services",
+        isIncluded: true,
+      },
+      {
+        label: "Credits Never Expire",
         isIncluded: true,
       },
       {
@@ -101,15 +109,19 @@ export const plans = [
     _id: 3,
     name: "Premium Package",
     icon: "/assets/icons/free-plan.svg",
-    price: 199,
-    credits: 2000,
+    price: 29,
+    credits: 500,
     inclusions: [
       {
-        label: "2000 Credits",
+        label: "500 Credits - Ultimate Value!",
         isIncluded: true,
       },
       {
-        label: "Full Access to Services",
+        label: "Full Access to All AI Services",
+        isIncluded: true,
+      },
+      {
+        label: "Credits Never Expire",
         isIncluded: true,
       },
       {

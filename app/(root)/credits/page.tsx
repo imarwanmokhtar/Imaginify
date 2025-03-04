@@ -19,13 +19,13 @@ const Credits = async () => {
     <>
       <Header
         title="Buy Credits"
-        subtitle="Choose a credit package that suits your needs!"
+        subtitle="Get credits that never expire and unlock the full power of AI image generation."
       />
 
       <section>
         <ul className="credits-list">
           {plans.map((plan) => (
-            <li key={plan.name} className="credits-item">
+            <li key={plan.name} className="credits-item flex flex-col">
               <div className="flex-center flex-col gap-3">
                 <Image src={plan.icon} alt="check" width={50} height={50} />
                 <p className="p-20-semibold mt-2 text-purple-500">
@@ -55,20 +55,22 @@ const Credits = async () => {
                 ))}
               </ul>
 
-              {plan.name === "Free" ? (
-                <Button variant="outline" className="credits-btn">
-                  Free Consumable
-                </Button>
-              ) : (
-                <SignedIn>
-                  <Checkout
-                    plan={plan.name}
-                    amount={plan.price}
-                    credits={plan.credits}
-                    buyerId={user._id}
-                  />
-                </SignedIn>
-              )}
+              <div className="mt-auto mb-4 w-full">
+                {plan.name === "Free" ? (
+                  <Button variant="outline" className="credits-btn w-full">
+                    Free Consumable
+                  </Button>
+                ) : (
+                  <SignedIn>
+                    <Checkout
+                      plan={plan.name}
+                      amount={plan.price}
+                      credits={plan.credits}
+                      buyerId={user._id}
+                    />
+                  </SignedIn>
+                )}
+              </div>
             </li>
           ))}
         </ul>
