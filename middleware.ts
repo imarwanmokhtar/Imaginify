@@ -16,22 +16,27 @@ export default authMiddleware({
   ignoredRoutes: [
     '/api/webhooks/(.*)',
     '/_next/static/(.*)',
-    '/favicon.ico'
+    '/_next/image(.*)',
+    '/favicon.ico',
+    '/(.*)?_rsc=(.*)' // Ignore RSC requests
   ],
   afterAuth(auth, req) {
     const url = new URL(req.url);
     const path = url.pathname;
 
+    // Skip middleware for RSC requests
+    if (url.searchParams.has('_rsc')) {
+      return NextResponse.next();
+    }
+
     // Handle unauthenticated users
-    if (!auth.userId && (
+    const isProtectedRoute = 
       path.startsWith('/app') ||
-      path.startsWith('/(root)/transformations') ||
-      path.startsWith('/transformations') ||
-      path.startsWith('/(root)/profile') ||
-      path.startsWith('/profile') ||
-      path.startsWith('/(root)/credits') ||
-      path.startsWith('/credits')
-    )) {
+      path.includes('/transformations') ||
+      path.includes('/profile') ||
+      path.includes('/credits');
+
+    if (!auth.userId && isProtectedRoute) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
     }
     
@@ -46,8 +51,7 @@ export default authMiddleware({
  
 export const config = {
   matcher: [
-    "/((?!.+\\.[\\w]+$|_next).*)",
-    "/",
-    "/(api|trpc)(.*)"
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/"
   ]
 };

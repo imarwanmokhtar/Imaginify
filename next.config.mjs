@@ -18,10 +18,35 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages: ['cloudinary', 'graphql-request']
+    serverComponentsExternalPackages: ['cloudinary', 'graphql-request'],
+    missingSuspenseWithCSRError: false
   },
   typescript: {
     ignoreBuildErrors: true
+  },
+  async redirects() {
+    return [
+      {
+        source: '/transformations',
+        destination: '/transformations/add/restore',
+        permanent: false,
+      },
+      {
+        source: '/profile',
+        destination: '/profile/billing',
+        permanent: false,
+      }
+    ];
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/:path*/_rsc/:params*',
+          destination: '/:path*/:params*'
+        }
+      ]
+    };
   }
 };
 
