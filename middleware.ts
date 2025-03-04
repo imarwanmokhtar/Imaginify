@@ -1,6 +1,5 @@
 import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
 export default authMiddleware({
   publicRoutes: [
@@ -17,24 +16,27 @@ export default authMiddleware({
   ignoredRoutes: [
     '/api/webhooks/(.*)',
     '/_next/static/(.*)',
-    '/favicon.ico',
-    '/api/(.*)' // Temporarily ignore API routes to test if this fixes the issue
+    '/favicon.ico'
   ],
   afterAuth(auth, req) {
     const url = new URL(req.url);
-    
+    const path = url.pathname;
+
     // Handle unauthenticated users
     if (!auth.userId && (
-      url.pathname.startsWith('/app') ||
-      url.pathname.startsWith('/transformations') ||
-      url.pathname.startsWith('/profile') ||
-      url.pathname.startsWith('/credits')
+      path.startsWith('/app') ||
+      path.startsWith('/(root)/transformations') ||
+      path.startsWith('/transformations') ||
+      path.startsWith('/(root)/profile') ||
+      path.startsWith('/profile') ||
+      path.startsWith('/(root)/credits') ||
+      path.startsWith('/credits')
     )) {
-      return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/sign-in", req.url));
     }
     
-    // Handle authenticated users
-    if (auth.userId && url.pathname === "/") {
+    // Handle authenticated users trying to access the landing page
+    if (auth.userId && path === "/") {
       return NextResponse.redirect(new URL("/app", req.url));
     }
 
@@ -44,14 +46,8 @@ export default authMiddleware({
  
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
-    "/((?!_next/static|_next/image|favicon.ico|public/).*)",
-    "/"
-  ],
+    "/((?!.+\\.[\\w]+$|_next).*)",
+    "/",
+    "/(api|trpc)(.*)"
+  ]
 };

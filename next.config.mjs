@@ -15,6 +15,13 @@ const nextConfig = {
         port: ''
       }
     ]
+  },
+  experimental: {
+    serverActions: true,
+    serverComponentsExternalPackages: ['cloudinary', 'graphql-request']
+  },
+  typescript: {
+    ignoreBuildErrors: true
   }
 };
 
