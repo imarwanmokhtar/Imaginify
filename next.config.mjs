@@ -44,6 +44,18 @@ const nextConfig = {
         {
           source: '/:path*/_rsc/:params*',
           destination: '/:path*/:params*'
+        },
+        {
+          source: '/transformations/:path*',
+          destination: '/(root)/transformations/:path*'
+        },
+        {
+          source: '/profile/:path*',
+          destination: '/(root)/profile/:path*'
+        },
+        {
+          source: '/credits/:path*',
+          destination: '/(root)/credits/:path*'
         }
       ]
     };

@@ -18,23 +18,24 @@ export default authMiddleware({
     '/_next/static/(.*)',
     '/_next/image(.*)',
     '/favicon.ico',
-    '/(.*)?_rsc=(.*)' // Ignore RSC requests
+    '/(.*)?_rsc=(.*)', // Ignore RSC requests
+    '/_next/data/(.*)'  // Ignore Next.js data requests
   ],
   afterAuth(auth, req) {
     const url = new URL(req.url);
     const path = url.pathname;
 
-    // Skip middleware for RSC requests
-    if (url.searchParams.has('_rsc')) {
+    // Skip middleware for RSC and data requests
+    if (url.searchParams.has('_rsc') || path.includes('/_next/data/')) {
       return NextResponse.next();
     }
 
     // Handle unauthenticated users
     const isProtectedRoute = 
       path.startsWith('/app') ||
-      path.includes('/transformations') ||
-      path.includes('/profile') ||
-      path.includes('/credits');
+      path.startsWith('/transformations') ||
+      path.startsWith('/profile') ||
+      path.startsWith('/credits');
 
     if (!auth.userId && isProtectedRoute) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
