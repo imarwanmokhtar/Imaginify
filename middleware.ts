@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export default authMiddleware({
-  // Include both versions of routes (with and without parentheses)
   publicRoutes: [
     '/', 
     '/api/webhooks/clerk', 
@@ -15,26 +14,44 @@ export default authMiddleware({
     '/auth/sign-in/[[...sign-in]]',
     '/auth/sign-up/[[...sign-up]]'
   ],
+  ignoredRoutes: [
+    '/api/webhooks/(.*)',
+    '/_next/static/(.*)',
+    '/favicon.ico',
+    '/api/(.*)' // Temporarily ignore API routes to test if this fixes the issue
+  ],
   afterAuth(auth, req) {
-    // If the user is not authenticated and trying to access a protected route,
-    // redirect them to the landing page
+    const url = new URL(req.url);
+    
+    // Handle unauthenticated users
     if (!auth.userId && (
-      req.nextUrl.pathname.startsWith('/app') ||
-      req.nextUrl.pathname.startsWith('/transformations') ||
-      req.nextUrl.pathname.startsWith('/profile') ||
-      req.nextUrl.pathname.startsWith('/credits')
+      url.pathname.startsWith('/app') ||
+      url.pathname.startsWith('/transformations') ||
+      url.pathname.startsWith('/profile') ||
+      url.pathname.startsWith('/credits')
     )) {
       return NextResponse.redirect(new URL("/", req.url));
     }
     
-    // If the user is authenticated and trying to access the landing page (root),
-    // redirect them to the app page
-    if (auth.userId && req.nextUrl.pathname === "/") {
+    // Handle authenticated users
+    if (auth.userId && url.pathname === "/") {
       return NextResponse.redirect(new URL("/app", req.url));
     }
+
+    return NextResponse.next();
   }
 });
  
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    "/((?!_next/static|_next/image|favicon.ico|public/).*)",
+    "/"
+  ],
 };
