@@ -5,6 +5,7 @@ import { Inter, Space_Grotesk } from 'next/font/google'
 import { Metadata } from 'next'
 import Script from 'next/script'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 const spaceGrotesk = Space_Grotesk({ 
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
     },
   },
   manifest: '/manifest.json',
+  verification: {
+    google: 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s',
+  }
 }
 
 export default function RootLayout({
@@ -31,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="google-site-verification" content="nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
