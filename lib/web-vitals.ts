@@ -8,13 +8,25 @@ declare global {
 
 const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals'
 
-function getConnectionSpeed() {
-  if (!navigator.connection) return ''
+interface NetworkInformation extends EventTarget {
+  effectiveType?: string;
+  downlink?: number;
+  rtt?: number;
+  saveData?: boolean;
+}
+
+interface NavigatorWithConnection extends Navigator {
+  connection?: NetworkInformation;
+}
+
+function getConnectionSpeed(): string {
+  const nav = navigator as NavigatorWithConnection;
+  if (!nav.connection) return '';
   
-  // @ts-ignore - some browsers don't have effectiveType
-  const effectiveType = navigator.connection.effectiveType
-  
-  return effectiveType || ''
+  const conn = nav.connection;
+  if (!conn.effectiveType) return '';
+
+  return conn.effectiveType; // 4g, 3g, 2g, slow-2g
 }
 
 export function sendToAnalytics(metric: CLSMetric | FCPMetric | FIDMetric | LCPMetric | TTFBMetric) {
