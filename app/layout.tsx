@@ -4,6 +4,7 @@ import { metadata as siteMetadata } from './metadata'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import { Metadata } from 'next'
 import Script from 'next/script'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ['latin'] })
 const spaceGrotesk = Space_Grotesk({ 
@@ -298,6 +299,7 @@ export default function RootLayout({
         <ClerkProvider>
           {children}
         </ClerkProvider>
+        <SpeedInsights />
         
         {/* Structured Data for Rich Results */}
         <Script
