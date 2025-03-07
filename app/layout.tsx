@@ -7,13 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { GTM_ID } from './lib/gtm'
 import { WebVitals } from '@/components/analytics/WebVitals'
-import dynamic from 'next/dynamic'
-
-// Dynamic import of AuthProvider
-const AuthProvider = dynamic(() => import('@/components/auth/AuthProvider').then(mod => mod.AuthProvider), {
-  ssr: true,
-  loading: () => <div className="min-h-screen bg-gray-50" />
-})
+import AuthProvider from '@/components/auth/AuthProvider'
 
 // Optimize font loading
 const inter = Inter({ 
