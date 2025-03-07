@@ -30,11 +30,6 @@ const nextConfig = {
         source: '/transformations',
         destination: '/transformations/add/restore',
         permanent: false,
-      },
-      {
-        source: '/profile',
-        destination: '/profile/billing',
-        permanent: false,
       }
     ];
   },

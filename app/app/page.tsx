@@ -24,7 +24,13 @@ const AppHome = async ({ searchParams }: SearchParamProps) => {
               className="flex-center flex-col gap-2"
             >
               <li className="flex-center w-fit rounded-full bg-white p-4">
-                <Image src={link.icon} alt="image" width={24} height={24} />
+                <Image 
+                  src={link.icon} 
+                  alt={`${link.label} feature icon`} 
+                  width={24} 
+                  height={24} 
+                  className={`${isActive && 'brightness-200'}`}
+                />
               </li>
               <p className="p-14-medium text-center text-white">{link.label}</p>
             </Link>

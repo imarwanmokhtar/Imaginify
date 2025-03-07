@@ -36,7 +36,10 @@ const Pricing = () => {
               className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
             >
               <div className="flex-center flex-col gap-3">
-                <Image src={plan.icon} alt={plan.name} width={50} height={50} />
+                <div className="mb-8 flex items-center gap-4">
+                  <Image src={plan.icon} alt={`${plan.name} Plan Icon`} width={50} height={50} />
+                  <h3 className="h3-bold text-dark-600">{plan.name}</h3>
+                </div>
                 <p className="p-20-semibold mt-2 text-purple-500">
                   {plan.name}
                 </p>
