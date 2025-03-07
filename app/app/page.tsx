@@ -2,12 +2,24 @@ import { Collection } from "@/components/shared/Collection"
 import { navLinks } from "@/constants"
 import { getAllImages } from "@/lib/actions/image.actions"
 import { HomePageLinks } from "@/components/shared/HomePageLinks"
+import { auth } from "@clerk/nextjs"
+
+interface SearchParamProps {
+  searchParams: {
+    query?: string;
+    page?: string;
+  }
+}
 
 const AppHome = async ({ searchParams }: SearchParamProps) => {
+  const { userId } = auth();
+  
+  if (!userId) return null;
+
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || '';
 
-  const images = await getAllImages({ page, searchQuery})
+  const images = await getAllImages({ page, searchQuery }) || { data: [], totalPage: 0, savedImages: 0 };
 
   return (
     <>

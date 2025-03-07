@@ -31,18 +31,24 @@ export default authMiddleware({
     }
 
     // Handle unauthenticated users
+    const isPublicRoute = 
+      path === "/" || 
+      path.startsWith("/sign-in") || 
+      path.startsWith("/sign-up");
+
     const isProtectedRoute = 
       path.startsWith('/app') ||
       path.startsWith('/transformations') ||
       path.startsWith('/profile') ||
       path.startsWith('/credits');
 
+    // If user is not signed in and trying to access protected route
     if (!auth.userId && isProtectedRoute) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
     }
-    
-    // Handle authenticated users trying to access the landing page
-    if (auth.userId && path === "/") {
+
+    // If user is signed in and trying to access public route
+    if (auth.userId && isPublicRoute) {
       return NextResponse.redirect(new URL("/app", req.url));
     }
 
