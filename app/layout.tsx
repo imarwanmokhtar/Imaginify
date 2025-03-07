@@ -324,8 +324,8 @@ export default function RootLayout({
 
         <ClerkProvider>
           {children}
+          <SpeedInsights />
         </ClerkProvider>
-        <SpeedInsights />
         
         {/* Structured Data for Rich Results */}
         <Script
