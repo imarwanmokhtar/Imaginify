@@ -74,7 +74,7 @@ export const metadata = {
     }
   },
   verification: {
-    google: 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s'
+    google: 'lHcCG87SVAV7ctEoeANEF9x_GMjS1Yxew6bL4UjcDWQ'
   },
   alternates: {
     canonical: 'https://imaginifyy-one.vercel.app',
@@ -83,7 +83,7 @@ export const metadata = {
     },
   },
   other: {
-    'google-site-verification': 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s',
+    'google-site-verification': 'lHcCG87SVAV7ctEoeANEF9x_GMjS1Yxew6bL4UjcDWQ',
     'msvalidate.01': 'your-bing-verification-code', // Add if you have Bing Webmaster Tools
   }
 } 
