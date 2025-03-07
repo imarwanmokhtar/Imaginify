@@ -1,5 +1,4 @@
 import './globals.css'
-import { ClerkProvider } from '@clerk/nextjs'
 import { metadata as siteMetadata } from './metadata'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import { Metadata } from 'next'
@@ -8,7 +7,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { GTM_ID } from './lib/gtm'
 import { WebVitals } from '@/components/analytics/WebVitals'
-import Head from 'next/head'
+import dynamic from 'next/dynamic'
+
+// Dynamic import of AuthProvider
+const AuthProvider = dynamic(() => import('@/components/auth/AuthProvider').then(mod => mod.AuthProvider), {
+  ssr: true,
+  loading: () => <div className="min-h-screen bg-gray-50" />
+})
 
 // Optimize font loading
 const inter = Inter({ 
@@ -99,34 +104,30 @@ export default function RootLayout({
           type="image/png"
         />
         
-        {/* Google Analytics - High Priority */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XHP7HNYM2R"
-          strategy="beforeInteractive"
-        />
-        <Script id="google-analytics" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XHP7HNYM2R', {
-              page_path: window.location.pathname,
-              send_page_view: true
-            });
-          `}
-        </Script>
-
-        {/* GTM - High Priority */}
+        {/* Optimized Analytics Loading */}
         <Script
           id="gtm-script"
-          strategy="beforeInteractive"
+          strategy="worker"
           dangerouslySetInnerHTML={{
             __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              
+              // Initialize GTM with minimal config
+              (function(w,d,s,l,i){
+                w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+                var f=d.getElementsByTagName(s)[0],j=d.createElement(s);
+                j.async=true;j.defer=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;
+                f.parentNode.insertBefore(j,f);
               })(window,document,'script','dataLayer','${GTM_ID}');
+
+              // Initialize GA4 with minimal config
+              gtag('js', new Date());
+              gtag('config', 'G-XHP7HNYM2R', {
+                page_path: window.location.pathname,
+                transport_type: 'beacon',
+                send_page_view: true
+              });
             `,
           }}
         />
@@ -134,28 +135,13 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="google-site-verification" content="lHcCG87SVAV7ctEoeANEF9x_GMjS1Yxew6bL4UjcDWQ" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" />
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         
-        {/* Performance monitoring */}
-        <Script id="web-vitals" strategy="afterInteractive">
-          {`
-            import { onCLS, onFID, onLCP, onFCP, onTTFB } from 'web-vitals';
-            import { sendToAnalytics } from '@/lib/web-vitals';
-
-            try {
-              onCLS(sendToAnalytics);
-              onFID(sendToAnalytics);
-              onLCP(sendToAnalytics);
-              onFCP(sendToAnalytics);
-              onTTFB(sendToAnalytics);
-            } catch (e) {
-              console.error('Web Vitals Error:', e);
-            }
-          `}
-        </Script>
+        {/* Cache control headers */}
+        <meta httpEquiv="Cache-Control" content="public, max-age=31536000, immutable" />
       </head>
       <body className={inter.className}>
         {/* GTM NoScript */}
@@ -168,12 +154,12 @@ export default function RootLayout({
           />
         </noscript>
 
-        <ClerkProvider>
+        <AuthProvider>
           {children}
           <SpeedInsights />
-          <Analytics />
+          <Analytics mode="auto" />
           <WebVitals />
-        </ClerkProvider>
+        </AuthProvider>
         
         {/* Enhanced Schema Markup */}
         <Script
