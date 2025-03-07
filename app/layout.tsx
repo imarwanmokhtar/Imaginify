@@ -1,6 +1,6 @@
 import './globals.css'
 import { metadata as siteMetadata } from './metadata'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
 import Script from 'next/script'
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -18,13 +18,6 @@ const AuthProvider = dynamic(() => import('@/components/auth/AuthProvider').then
 // Optimize font loading
 const inter = Inter({ 
   subsets: ['latin'],
-  display: 'swap', // Add display swap for better performance
-  preload: true
-})
-
-const spaceGrotesk = Space_Grotesk({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
   preload: true
 })

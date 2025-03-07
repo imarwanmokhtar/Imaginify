@@ -6,8 +6,9 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['@clerk/nextjs', '@vercel/analytics'],
+    optimizePackageImports: ['@clerk/nextjs'],
   },
+  transpilePackages: ['@clerk/nextjs'],
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
@@ -55,4 +56,6 @@ const nextConfig = {
       },
     ]
   },
-} 
+}
+
+module.exports = nextConfig 
