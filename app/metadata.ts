@@ -1,4 +1,6 @@
-export const metadata = {
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
   metadataBase: new URL('https://imaginifyy-one.vercel.app'),
   title: {
     default: 'Imaginify - AI Image Editor & Background Remover | Free Online Photo Editor',
@@ -69,8 +71,8 @@ export const metadata = {
       index: true,
       follow: true,
       'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1
+      'max-image-preview': 'large' as const,
+      'max-snippet': -1,
     }
   },
   verification: {
