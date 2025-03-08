@@ -18,6 +18,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   ...siteMetadata,
+  title: 'Imaginifyy - AI Image Editor',
+  description: 'Transform your photos effortlessly with AI-driven tools',
   alternates: {
     canonical: '/',
     languages: {
