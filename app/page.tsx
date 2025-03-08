@@ -11,6 +11,13 @@ import Features from "@/components/landing/Features";
 import Testimonials from "@/components/landing/Testimonials";
 import Pricing from "@/components/landing/Pricing";
 import Footer from "@/components/landing/Footer";
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  verification: {
+    google: 'lHcCG87SVAV7ctEoeANEF9x_GMjS1Yxew6bL4UjcDWQ',
+  },
+}
 
 export default function LandingPage() {
   const { isSignedIn } = useUser();
