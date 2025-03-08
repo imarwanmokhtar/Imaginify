@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   verification: {
-    google: 'lHcCG87SVAV7ctEoeANEF9x_GMjS1Yxew6bL4UjcDWQ',
+    google: 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s',
   }
 }
 
@@ -122,7 +122,7 @@ export default function RootLayout({
         />
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="google-site-verification" content="lHcCG87SVAV7ctEoeANEF9x_GMjS1Yxew6bL4UjcDWQ" />
+        <meta name="google-site-verification" content="nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" />
         <meta name="theme-color" content="#000000" />
