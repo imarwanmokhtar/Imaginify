@@ -5,7 +5,6 @@ import { Metadata } from 'next'
 import Script from 'next/script'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
-import { GTM_ID } from './lib/gtm'
 import { WebVitals } from '@/components/analytics/WebVitals'
 import AuthProvider from '@/components/auth/AuthProvider'
 
@@ -85,6 +84,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <head>
+        {/* Google Tag Manager */}
+        <Script
+          id="gtm-script-new"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PJVHRGGF');`
+          }}
+        />
+        {/* End Google Tag Manager */}
+
         {/* Preload critical assets */}
         <link
           rel="preload"
@@ -93,34 +106,6 @@ export default function RootLayout({
           type="image/png"
         />
         
-        {/* Optimized Analytics Loading */}
-        <Script
-          id="gtm-script"
-          strategy="worker"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              
-              // Initialize GTM with minimal config
-              (function(w,d,s,l,i){
-                w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],j=d.createElement(s);
-                j.async=true;j.defer=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;
-                f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');
-
-              // Initialize GA4 with minimal config
-              gtag('js', new Date());
-              gtag('config', 'G-XHP7HNYM2R', {
-                page_path: window.location.pathname,
-                transport_type: 'beacon',
-                send_page_view: true
-              });
-            `,
-          }}
-        />
-
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="google-site-verification" content="nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -133,15 +118,16 @@ export default function RootLayout({
         <meta httpEquiv="Cache-Control" content="public, max-age=31536000, immutable" />
       </head>
       <body className={inter.className}>
-        {/* GTM NoScript */}
+        {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PJVHRGGF"
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+        {/* End Google Tag Manager (noscript) */}
 
         <AuthProvider>
           {children}
