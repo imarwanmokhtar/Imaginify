@@ -84,6 +84,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <head>
+        <Script
+          id="gtm-script"
+          strategy="beforeInteractive"
+        >{`
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PJVHRGGF');
+        `}</Script>
+
         {/* Preload critical assets */}
         <link
           rel="preload"
@@ -104,6 +115,16 @@ export default function RootLayout({
         <meta httpEquiv="Cache-Control" content="public, max-age=31536000, immutable" />
       </head>
       <body className={inter.className}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PJVHRGGF"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+
         <AuthProvider>
           {children}
           <SpeedInsights />

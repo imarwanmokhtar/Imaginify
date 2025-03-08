@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['imaginifyy-one.vercel.app'],
+    domains: ['imaginifyy-one.vercel.app', 'ui-avatars.com'],
     minimumCacheTTL: 60,
   },
   experimental: {
