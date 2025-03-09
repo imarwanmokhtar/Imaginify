@@ -95,9 +95,13 @@ export const Collection = ({
 };
 
 const Card = ({ image }: { image: IImage }) => {
+  const linkPath = image.transformationType === "generate" 
+    ? `/generated/${image._id}` 
+    : `/transformations/${image._id}`;
+
   return (
     <li>
-      <Link href={`/transformations/${image._id}`} className="collection-card">
+      <Link href={linkPath} className="collection-card">
         <CldImage
           src={image.publicId}
           alt={image.title}
