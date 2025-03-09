@@ -23,7 +23,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2" aria-label="Go to homepage">
             <Image
               src="/assets/images/logo-text.svg"
               alt="logo"
@@ -34,13 +34,13 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="#features" className="text-gray-600 hover:text-purple-600 transition-colors">
+            <Link href="#features" className="text-gray-600 hover:text-purple-600 transition-colors" aria-label="View features">
               Features
             </Link>
-            <Link href="#pricing" className="text-gray-600 hover:text-purple-600 transition-colors">
+            <Link href="#pricing" className="text-gray-600 hover:text-purple-600 transition-colors" aria-label="View pricing">
               Pricing
             </Link>
-            <Link href="#testimonials" className="text-gray-600 hover:text-purple-600 transition-colors">
+            <Link href="#testimonials" className="text-gray-600 hover:text-purple-600 transition-colors" aria-label="View testimonials">
               Testimonials
             </Link>
           </div>
@@ -50,6 +50,7 @@ const Navbar = () => {
               <Button
                 variant="ghost"
                 className="hover:bg-purple-50 transition-colors"
+                aria-label="Sign in to your account"
               >
                 Sign In
               </Button>
@@ -57,6 +58,7 @@ const Navbar = () => {
             <Link href="/sign-up">
               <Button
                 className="bg-purple-600 hover:bg-purple-700 text-white transition-colors"
+                aria-label="Create a new account"
               >
                 Get Started
               </Button>
