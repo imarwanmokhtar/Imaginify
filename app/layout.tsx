@@ -6,10 +6,19 @@ import { Metadata } from 'next'
 import Script from 'next/script'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true
+})
+
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700']
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true
 })
 
 export const metadata: Metadata = {
@@ -29,8 +38,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.className} ${spaceGrotesk.className}`}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
