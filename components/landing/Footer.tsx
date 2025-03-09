@@ -22,13 +22,13 @@ const Footer = () => {
               Transform your images with the power of AI. Fast, easy, and professional results.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="hover:text-purple-400 transition-colors">
+              <Link href="#" className="hover:text-purple-400 transition-colors" aria-label="Visit our Facebook page">
                 <Facebook size={20} />
               </Link>
-              <Link href="#" className="hover:text-purple-400 transition-colors">
+              <Link href="#" className="hover:text-purple-400 transition-colors" aria-label="Visit our Twitter page">
                 <Twitter size={20} />
               </Link>
-              <Link href="#" className="hover:text-purple-400 transition-colors">
+              <Link href="#" className="hover:text-purple-400 transition-colors" aria-label="Visit our Instagram page">
                 <Instagram size={20} />
               </Link>
             </div>
@@ -81,7 +81,7 @@ const Footer = () => {
                 className="bg-gray-800 text-white px-4 py-2 rounded-md flex-grow focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
               <Link href="/sign-in">
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-purple-600 hover:bg-purple-700" aria-label="Subscribe to newsletter">
                   <Mail className="w-4 h-4"/>
                 </Button>
               </Link>
