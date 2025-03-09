@@ -22,6 +22,10 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
+  other: {
+    "google-site-verification": "nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s",
+    "msvalidate.01": "37C17140FA20C88C3AFE4734BF1A392E",
+  }
   ...siteMetadata,
   alternates: {
     canonical: '/',

@@ -2,6 +2,8 @@ export const metadata = {
   metadataBase: new URL('https://imaginifyy-one.vercel.app'),
   verification: {
     google: 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s',
+    "google-site-verification": "nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s",
+    "msvalidate.01": "37C17140FA20C88C3AFE4734BF1A392E",
   },
   title: {
     default: 'Imaginify - AI Image Editor | Remove, Restore & Recolor Photos',
@@ -65,5 +67,6 @@ export const metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     }
+
   }
 } 
