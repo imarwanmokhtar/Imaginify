@@ -3,11 +3,14 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://imaginify.vercel.app/sitemap.xml
+Sitemap: https://imaginifyy-one.vercel.app/sitemap.xml
 
-# Disallow admin and api routes
+# Disallow admin and private routes
+Disallow: /app/*
 Disallow: /api/*
-Disallow: /admin/*
+Disallow: /dashboard/*
+Disallow: /profile/*
+Disallow: /credits/*
 
 # Disallow authentication routes
 Disallow: /sign-in

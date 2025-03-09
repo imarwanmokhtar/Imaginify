@@ -12,6 +12,9 @@ export const generateMetadata = ({ pathname }: { pathname: string }): Metadata =
     description: `${capitalizedPage} your images with Imaginify's AI-powered tools. Transform, enhance, and create stunning visuals instantly.`,
     alternates: {
       canonical: pathname,
+    },
+    verification: {
+      google: 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s',
     }
   }
 }

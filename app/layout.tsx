@@ -40,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.className} ${spaceGrotesk.className}`}>
       <head>
+        <meta name="google-site-verification" content="nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" />
