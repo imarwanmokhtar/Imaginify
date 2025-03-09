@@ -67,9 +67,6 @@ const Testimonials = () => {
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
               className="absolute inset-0"
-              role="tabpanel"
-              id={`testimonial-${currentIndex}`}
-              aria-label={`Testimonial from ${testimonials[currentIndex].name}`}
             >
               <div className="bg-white p-8 rounded-2xl shadow-xl">
                 <div className="flex items-center space-x-4 mb-6">
@@ -103,23 +100,15 @@ const Testimonials = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex space-x-2" role="tablist" aria-label="Testimonials navigation">
-            {testimonials.map((testimonial, index) => (
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex space-x-2">
+            {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 ${
-                  index === currentIndex ? 'bg-purple-600' : 'bg-purple-200'
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-purple-600 w-6' : 'bg-purple-200'
                 }`}
-                role="tab"
-                aria-selected={index === currentIndex}
-                aria-label={`Show testimonial from ${testimonial.name}`}
-                aria-controls={`testimonial-${index}`}
-              >
-                <span className={`block w-3 h-3 rounded-full ${
-                  index === currentIndex ? 'w-6' : ''
-                }`} />
-              </button>
+              />
             ))}
           </div>
         </div>
