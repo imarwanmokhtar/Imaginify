@@ -42,6 +42,19 @@ const nextConfig = {
         }
       ]
     };
+  },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'google-site-verification',
+            value: 'nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s',
+          },
+        ],
+      },
+    ]
   }
 };
 
