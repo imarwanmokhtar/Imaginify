@@ -14,7 +14,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 lg:px-8 lg:pt-48 lg:pb-40">
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl md:text-7xl">
-              Unleash Your Creativity with AI-Powered Image Editing
+              Transform Photos with AI: Remove Objects, Restore & Edit
             </h1>
           </div>
         </div>

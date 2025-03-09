@@ -1,21 +1,23 @@
 export const metadata = {
   metadataBase: new URL('https://imaginifyy-one.vercel.app'),
   title: {
-    default: 'Imaginify - AI-Powered Image Editor & Generator',
-    template: '%s | Imaginify'
+    default: 'Imaginify - AI Image Editor | Remove, Restore & Recolor Photos',
+    template: '%s | Imaginify - AI Photo Editor'
   },
-  description: 'Transform your images with AI-powered editing tools. Generate, restore, recolor, and remove backgrounds instantly with our advanced AI image editor.',
+  description: 'Use Imaginify, the best AI image editor, to remove objects, restore old photos, and change backgrounds effortlessly. Try our free AI tools today!',
   keywords: [
     'AI image editor',
-    'image generation',
-    'background removal',
-    'image restoration',
-    'AI photo editing',
-    'image transformation',
-    'AI art generator',
-    'photo enhancement',
-    'image manipulation',
-    'AI imaging tools'
+    'remove objects from photos AI',
+    'restore old photos AI',
+    'free AI background remover',
+    'how to remove objects from images using AI',
+    'AI photo restoration',
+    'AI object removal tool',
+    'background removal AI',
+    'photo enhancement AI',
+    'AI photo editing online',
+    'best AI image editor',
+    'free AI photo editor'
   ],
   authors: [{ name: 'Imaginify' }],
   creator: 'Imaginify',
@@ -24,27 +26,27 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://imaginifyy-one.vercel.app',
-    title: 'Imaginify - AI-Powered Image Editor & Generator',
-    description: 'Transform your images with AI-powered editing tools. Generate, restore, recolor, and remove backgrounds instantly.',
+    title: 'Imaginify - AI Image Editor | Remove, Restore & Recolor Photos',
+    description: 'Use Imaginify, the best AI image editor, to remove objects, restore old photos, and change backgrounds effortlessly. Try our free AI tools today!',
     siteName: 'Imaginify',
     images: [
       {
         url: '/social/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Imaginify - AI Image Editor'
+        alt: 'Imaginify - AI Image Editor for Object Removal and Photo Restoration'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Imaginify - AI-Powered Image Editor & Generator',
-    description: 'Transform your images with AI-powered editing tools. Generate, restore, recolor, and remove backgrounds instantly.',
+    title: 'Imaginify - AI Image Editor | Remove, Restore & Recolor Photos',
+    description: 'Use Imaginify, the best AI image editor, to remove objects, restore old photos, and change backgrounds effortlessly. Try our free AI tools today!',
     images: [{
       url: '/social/twitter-image.png',
       width: 1200,
       height: 600,
-      alt: 'Imaginify - AI Image Editor'
+      alt: 'Imaginify - AI Image Editor for Object Removal and Photo Restoration'
     }],
     creator: '@imaginify'
   },

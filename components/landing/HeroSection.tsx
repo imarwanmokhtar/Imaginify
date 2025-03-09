@@ -31,10 +31,10 @@ export default function HeroSection() {
         <div className="mx-auto max-w-7xl px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 lg:px-8 lg:pt-48 lg:pb-40">
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl md:text-7xl">
-              Unleash Your Creativity with AI-Powered Image Editing
+              Transform Photos with AI: Remove Objects, Restore & Edit
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600 max-w-3xl">
-              Transform your photos effortlessly with AI-driven tools. Remove objects, fill gaps, restore old pictures, and more—all in one place.
+              Use our free AI image editor to remove unwanted objects, restore old photos, and remove backgrounds instantly. Professional-quality results in seconds.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <Button 
@@ -61,7 +61,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl md:text-7xl">
-              Unleash Your Creativity with AI-Powered Image Editing
+              Transform Photos with AI: Remove Objects, Restore & Edit
             </h1>
             <motion.p 
               className="mt-6 text-lg leading-8 text-gray-600 max-w-3xl"
@@ -69,7 +69,7 @@ export default function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Transform your photos effortlessly with AI-driven tools. Remove objects, fill gaps, restore old pictures, and more—all in one place.
+              Use our free AI image editor to remove unwanted objects, restore old photos, and remove backgrounds instantly. Professional-quality results in seconds.
             </motion.p>
             <motion.div 
               className="mt-10 flex items-center gap-x-6"
