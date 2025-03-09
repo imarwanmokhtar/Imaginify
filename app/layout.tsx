@@ -41,6 +41,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className} ${spaceGrotesk.className}`}>
       <head>
         <meta name="google-site-verification" content="nlXoUekknA8avDb5j2o9THmz1XR-CZxz5LN4EysJa6s" />
+        <meta name="msvalidate.01" content="37C17140FA20C88C3AFE4734BF1A392E" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" />
